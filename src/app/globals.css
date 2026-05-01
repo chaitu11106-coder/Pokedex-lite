@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --poke-red: #FF1744;
+  --poke-dark: #050508;
+  --poke-card: #0D0D14;
+  --poke-border: #1E1E2E;
+  --poke-gold: #FFD600;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #050508;
+  color: #ffffff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0D14;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF1744;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5252;
+}
+
+/* Scan line effect overlay */
+.scanlines::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 23, 68, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 23, 68, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Glow utilities */
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 23, 68, 0.5), 0 0 60px rgba(255, 23, 68, 0.15);
+}
+.glow-gold {
+  box-shadow: 0 0 20px rgba(255, 214, 0, 0.5), 0 0 60px rgba(255, 214, 0, 0.15);
+}
+.text-glow-red {
+  text-shadow: 0 0 20px rgba(255, 23, 68, 0.8);
+}
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(255, 214, 0, 0.8);
+}
+
+/* Pokeball spinner */
+@keyframes pokeball-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.pokeball-spin {
+  animation: pokeball-spin 1.2s linear infinite;
+}
+
+/* Holographic card shine */
+@keyframes holo-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Type badge pulse */
+@keyframes type-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Number counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stat bar fill */
+@keyframes stat-fill {
+  from { width: 0%; }
+  to { width: var(--target-width); }
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Clip path shapes */
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+/* Modal backdrop blur */
+.modal-backdrop {
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+}
+
+/* Loading skeleton */
+@keyframes skeleton-pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+.skeleton {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, #1E1E2E 25%, #252535 50%, #1E1E2E 75%);
+  background-size: 200% 100%;
+}
+
+/* Focus styles */
+input:focus, button:focus-visible {
+  outline: 2px solid #FF1744;
+  outline-offset: 2px;
+}
+
+/* Custom range input */
+input[type="range"] {
+  accent-color: #FF1744;
+}
+
+/* Favorite heart animation */
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.heart-pop {
+  animation: heart-pop 0.3s ease;
+}
+
+/* Page transition */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@layer utilities {
+  .font-orbitron { font-family: 'Orbitron', monospace; }
+  .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+  .font-mono-jb { font-family: 'JetBrains Mono', monospace; }
+}
